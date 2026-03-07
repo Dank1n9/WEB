@@ -1,94 +1,311 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<title>shiorko的小站</title>
-<style type="text/css">
-a:link {
-	text-decoration: none;
-	color: #FFFFFF;
-}
-a:visited {
-	text-decoration: none;
-	color: #FFFFFF;
-}
-a:hover {
-	text-decoration: none;
-}
-a:active {
-	text-decoration: none;
-}
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的踪迹 - shiorko的小站</title>
+    <style>
+        /* --- 全局基础设置 --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        
+        /* --- 主容器 --- */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        /* --- 左侧侧边栏 --- */
+        .sidebar {
+            flex: 0 0 260px;
+            background: #2c3e50;
+            color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .banner-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        .banner-img:hover { transform: scale(1.03); }
+        .nav-menu { list-style: none; width: 100%; }
+        .nav-menu li { margin-bottom: 12px; }
+        .nav-menu a {
+            display: block;
+            background: #34495e;
+            color: #ecf0f1;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            border-left: 4px solid transparent;
+        }
+        .nav-menu a:hover {
+            background: #ffa400;
+            color: #fff;
+            border-left: 4px solid #fff;
+            transform: translateX(5px);
+        }
+        .nav-item-active {
+            background: #cecece !important;
+            color: #fff !important;
+            border-left: 4px solid #fff !important;
+            cursor: default;
+        }
+
+        /* --- 右侧主内容区 --- */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            min-width: 300px;
+            text-align: center;
+        }
+        .page-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            border-bottom: 2px solid #ffa400;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* --- 个人头像展示区 --- */
+        .profile-avatar-section {
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        .avatar-img {
+            /* ✅ 关键修改：不固定宽高，让图片按比例显示 */
+            max-width: 120px;
+            max-height: 120px;
+            width: auto;
+            height: auto;
+            object-fit: contain; /* 保持原始比例 */
+            border-radius: 50%; /* 圆形裁剪 */
+            border: 4px solid #fff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+            background: #f8f9fa;
+            display: inline-block;
+        }
+        .avatar-img:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .avatar-caption {
+            margin-top: 15px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        /* --- 踪迹列表 --- */
+        .trace-list {
+            list-style: none;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .trace-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8f9fa;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 5px solid #bdc3c7;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .trace-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            background: #fff;
+        }
+
+        /* 左侧：图标 + 标签 */
+        .trace-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        /* ✅ 移除了 platform-icon 样式，因为不再使用图片 */
+        .trace-label {
+            font-weight: bold;
+            color: #555;
+            font-size: 16px;
+        }
+
+        /* 右侧：具体内容 */
+        .trace-value {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+            text-align: right;
+            max-width: 60%;
+            word-break: break-all;
+        }
+        
+        /* 特殊样式：Steam ID 链接 */
+        .steam-link {
+            color: #66c0f4;
+            font-family: Consolas, monospace;
+            background: #eef6fb;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .steam-link:hover {
+            background: #66c0f4;
+            color: #fff;
+        }
+
+        /* 特殊样式：小黑盒名字标签 */
+        .xhh-tag {
+            background: linear-gradient(135deg, #ff9900, #ff6600);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(255, 102, 0, 0.3);
+        }
+
+        /* 空状态提示 */
+        .empty-state {
+            margin-top: 30px;
+            padding: 20px;
+            text-align: center;
+            color: #95a5a6;
+            font-style: italic;
+            border: 2px dashed #eee;
+            border-radius: 8px;
+        }
+
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- 页脚 --- */
+        .site-footer {
+            width: 100%;
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #999;
+        }
+        .footer-logo {
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 5px;
+            opacity: 0.6;
+        }
+
+        /* --- 手机端适配 --- */
+        @media (max-width: 768px) {
+            .container { margin: 0; border-radius: 0; flex-direction: column; }
+            .sidebar { width: 100%; flex: none; padding: 20px; }
+            .banner-img { max-width: 300px; margin: 0 auto 20px; }
+            .main-content { padding: 20px; }
+            .trace-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .trace-value {
+                text-align: left;
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
-<body><table width="200" border="1" align="center">
-  <tbody>
-    <tr>
-      <th scope="col"><img src="../use/channels4_banner (4).jpg" width="1707" height="282" alt=""/>
-        <table width="200" border="0" align="left" cellpadding="0" cellspacing="10">
-          <tbody>
-            <tr>
-              <th height="70" bgcolor="#8C8C8C" scope="row"><span style="color: #FFFFFF; font-size: 24px;"><a href="about.html">关于我</a></span>&nbsp;</th>
-            </tr>
-            <tr>
-              <th height="70" bgcolor="#8C8C8C" style="font-size: 24px; color: #FFFFFF;" scope="row">&nbsp;<a href="call m.html">联系我</a></th>
-            </tr>
-            <tr>
-              <th height="70" bgcolor="#CECECE" style="color: #FFFFFF; font-size: 24px;" scope="row">我的踪迹&nbsp;</th>
-            </tr>
-            <tr>
-              <th height="70" bgcolor="#8C8C8C" style="font-size: 24px" scope="row">&nbsp;<a href="URL.html">有用的网址？</a></th>
-            </tr>
-            <tr>
-              <th height="70" bgcolor="#8C8C8C" style="font-size: 24px" scope="row"><a href="../index.html">回到首页</a></th>
-            </tr>
-          </tbody>
-        </table>
-        <table width="800" border="1" align="center">
-          <tbody>
-            <tr>
-              <td height="65">Steam ID</td>
-              <td>76561199780305392&nbsp;</td>
-            </tr>
-            <tr>
-              <td height="65"><img src="../use/ac7edcb6a0cd83bc3a7a7a0a3730ba69c17f47ab.png" width="110" height="53" alt=""/>&nbsp;</td>
-              <td>*********&nbsp;</td>
-            </tr>
-            <tr>
-              <td height="65">小黑盒&nbsp;</td>
-              <td>&nbsp;SHIROKO</td>
-            </tr>
-            <tr>
-              <td height="65">&nbsp;</td>
-              <td>&nbsp;</td>
-            </tr>
-            <tr>
-              <td height="65">&nbsp;</td>
-              <td>&nbsp;</td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="800" border="0" align="left" cellpadding="0" cellspacing="10">
-          <tbody>
-            <tr> </tr>
-          </tbody>
-      </table></th>
-    </tr>
-  </tbody>
-</table>
-<table width="1000" border="0" align="center">
-  <tbody>
-    <tr>
-      <td align="center" style="font-size: 9px"><p><img src="../use/屏幕截图 2025-12-25 181752.png" width="104" height="18" alt="">&nbsp;</p>
-      <p>Copyright©2025-2026 版权没有</p></td>
-    </tr>
-  </tbody>
-</table>
-<table width="200" border="0" align="center">
-  <tbody>
-    <tr> </tr>
-  </tbody>
-</table>
+<body>
+
+<div class="container">
+    <!-- 左侧侧边栏 -->
+    <aside class="sidebar">
+        <img src="../use/channels4_banner (4).jpg" alt="Gawr Gura Banner" class="banner-img">
+        
+        <ul class="nav-menu">
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="call m.html">联系我</a></li>
+            <li><a href="away.html" class="nav-item-active">我的踪迹</a></li>
+            <li><a href="URL.html">有用的网址？</a></li>
+            <li><a href="../index.html">回到首页</a></li>
+        </ul>
+    </aside>
+
+    <!-- 右侧主内容 -->
+    <main class="main-content">
+        <h2 class="page-title">我的踪迹</h2>
+        
+        <!-- 个人头像区域 (使用 111.gif，已修复变形问题) -->
+        <div class="profile-avatar-section">
+            <img src="../use/111.gif" alt="shiorko Avatar" class="avatar-img">
+            <p class="avatar-caption">👋 这里是 shiorko 的游戏足迹</p>
+        </div>
+        
+        <ul class="trace-list">
+            <!-- Steam 信息 -->
+            <li class="trace-item" style="border-left-color: #1b2838;">
+                <div class="trace-left">
+                    <span style="font-size: 24px;">🎮</span> 
+                    <span class="trace-label">Steam ID</span>
+                </div>
+                <div class="trace-value">
+                    <a href="https://steamcommunity.com/profiles/76561199780305392" target="_blank" class="steam-link">
+                        76561199780305392
+                    </a>
+                </div>
+            </li>
+
+            <!-- 小黑盒信息 (已移除 Logo 图片，仅保留文字) -->
+            <li class="trace-item" style="border-left-color: #ff9900;">
+                <div class="trace-left">
+                    <!-- ✅ 不再使用 img 标签，直接用文字 -->
+                    <span class="trace-label">小黑盒</span>
+                </div>
+                <div class="trace-value">
+                    <span class="xhh-tag">SHIROKO</span>
+                </div>
+            </li>
+        </ul>
+
+        <!-- 预留位置 -->
+        <div class="empty-state">
+            其他社交平台正在添加中... 🚧
+        </div>
+
+    </main>
+
+    <!-- 底部版权 -->
+    <footer class="site-footer">
+        <img src="../use/屏幕截图 2025-12-25 181752.png" alt="Logo" class="footer-logo">
+        <p>Copyright © 2025-2026 shiorko.</p>
+    </footer>
+</div>
 
 </body>
 </html>
