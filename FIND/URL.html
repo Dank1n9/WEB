@@ -1,109 +1,253 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<title>shiorko的小站</title>
-<style type="text/css">
-a:link {
-	text-decoration: none;
-	color: #FFFFFF;
-}
-a:visited {
-	text-decoration: none;
-	color: #FFFFFF;
-}
-a:hover {
-	text-decoration: none;
-}
-a:active {
-	text-decoration: none;
-}
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>有用的网址 - shiorko的小站</title>
+    <style>
+        /* --- 全局基础设置 --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        
+        /* --- 主容器 --- */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        /* --- 左侧侧边栏 --- */
+        .sidebar {
+            flex: 0 0 260px;
+            background: #2c3e50;
+            color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .banner-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        .banner-img:hover { transform: scale(1.03); }
+        .nav-menu { list-style: none; width: 100%; }
+        .nav-menu li { margin-bottom: 12px; }
+        .nav-menu a {
+            display: block;
+            background: #34495e;
+            color: #ecf0f1;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            border-left: 4px solid transparent;
+        }
+        .nav-menu a:hover {
+            background: #ffa400;
+            color: #fff;
+            border-left: 4px solid #fff;
+            transform: translateX(5px);
+        }
+        .nav-item-active {
+            background: #cecece !important;
+            color: #fff !important;
+            border-left: 4px solid #fff !important;
+            cursor: default;
+        }
+
+        /* --- 右侧主内容区 --- */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            min-width: 300px;
+        }
+        .page-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            border-bottom: 2px solid #ffa400;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* --- 网址网格布局 (严格对应原表格顺序) --- */
+        .url-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 强制固定为5列，对应原表格 */
+            gap: 15px;
+        }
+
+        .url-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 60px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 15px;
+            text-align: center;
+            padding: 0 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            color: #fff;
+        }
+        .url-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            filter: brightness(1.1);
+        }
+
+        /* 颜色主题 (严格对应原背景色) */
+        .theme-red { background: linear-gradient(135deg, #a61818, #c0392b); }
+        .theme-blue { background: linear-gradient(135deg, #3956ff, #2980b9); }
+        
+        /* 特殊样式：占位符 --- */
+        .placeholder {
+            background: #eee;
+            color: #aaa;
+            font-size: 20px;
+            letter-spacing: 5px;
+            cursor: default;
+            box-shadow: none;
+            border: 1px dashed #ccc;
+        }
+        .placeholder:hover { transform: none; }
+
+        /* 特殊样式：高亮边框 (如播放器) */
+        .highlight-border {
+            border: 2px solid #ffa400;
+            position: relative;
+        }
+        .highlight-border::after {
+            content: "★";
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ffa400;
+            color: #fff;
+            font-size: 12px;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            line-height: 16px;
+            text-align: center;
+        }
+
+        /* --- 页脚 --- */
+        .site-footer {
+            width: 100%;
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #999;
+        }
+        .footer-logo {
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 5px;
+            opacity: 0.6;
+        }
+
+        /* --- 手机端适配 --- */
+        @media (max-width: 768px) {
+            .container { margin: 0; border-radius: 0; flex-direction: column; }
+            .sidebar { width: 100%; flex: none; padding: 20px; }
+            .banner-img { max-width: 300px; margin: 0 auto 20px; }
+            .url-grid { 
+                grid-template-columns: repeat(2, 1fr); /* 手机变2列 */
+                gap: 10px;
+            }
+            .main-content { padding: 20px; }
+        }
+        @media (max-width: 480px) {
+            .url-grid { grid-template-columns: 1fr; } /* 超小屏幕1列 */
+        }
+    </style>
 </head>
 
-<body><table width="200" border="1" align="center">
-  <tbody>
-    <tr>
-      <th scope="col"><img src="../use/channels4_banner (4).jpg" width="1707" height="282" alt=""/>
-        <table width="200" border="0" align="left" cellpadding="0" cellspacing="10">
-          <tbody>
-            <tr>
-              <th height="70" bgcolor="#8C8C8C" scope="row"><span style="color: #FFFFFF; font-size: 24px;"><a href="about.html">关于我</a></span>&nbsp;</th>
-            </tr>
-            <tr>
-              <th height="70" bgcolor="#8C8C8C" style="font-size: 24px; color: #FFFFFF;" scope="row">&nbsp;<a href="call m.html">联系我</a></th>
-            </tr>
-            <tr>
-              <th height="70" bgcolor="#8C8C8C" style="color: #FFFFFF; font-size: 24px;" scope="row"><a href="away.html">我的踪迹</a>&nbsp;</th>
-            </tr>
-            <tr>
-              <th height="70" bgcolor="#CECECE" style="font-size: 24px" scope="row">&nbsp;<a href="URL.html">有用的网址？</a></th>
-            </tr>
-            <tr>
-              <th height="70" bgcolor="#8C8C8C" scope="row"><span style="font-size: 24px"><a href="../index.html">回到首页</a></span><a href="Friend.html">&nbsp;</a></th>
-            </tr>
-          </tbody>
-        </table>
-        <table width="1000" border="1" align="center">
-          <tbody>
-            <tr>
-              <td height="50" bgcolor="#A61818">&nbsp;<a href="https://www.qianwen.com/">通义千问</a></td>
-              <td bgcolor="#3956FF">&nbsp;<a href="https://chat.deepseek.com/">deepseek</a></td>
-              <td bgcolor="#A61818"><a href="https://github.com/">Github</a>&nbsp;</td>
-              <td bgcolor="#3956FF">&nbsp;<a href="Google.com">Google</a></td>
-              <td bgcolor="#A61818"><a href="https://vidhub.tv/">&nbsp;免费电影</a></td>
-            </tr>
-            <tr>
-              <td height="50" bgcolor="#3956FF">&nbsp;<a href="https://www.mcmod.cn/">MC百科</a></td>
-              <td bgcolor="#A61818">&nbsp;<a href="https://pan.quark.cn/s/8f79f214a2df#/list/share">图吧工具箱</a></td>
-              <td bgcolor="#3956FF">&nbsp;<a href="https://s.team">Steam</a></td>
-              <td bgcolor="#A61818">&nbsp;<a href="https://www.wikipedia.org/">维基百科</a></td>
-              <td bgcolor="#3956FF"><a href="https://types.yuzeli.com/survey">哈佛测试&nbsp;</a></td>
-            </tr>
-            <tr>
-              <td height="50" bgcolor="#A61818">&nbsp;---</td>
-              <td bgcolor="#3956FF">&nbsp;&nbsp;---</td>
-              <td bgcolor="#A61818" style="color: #00FFFB"><a href="video Player/player.html">我的播放器&nbsp;</a></td>
-              <td bgcolor="#3956FF">---&nbsp;</td>
-              <td bgcolor="#A61818">---</td>
-            </tr>
-            <tr>
-              <td height="50" bgcolor="#3956FF">&nbsp;<a href="智障小游戏 - 稳定版.html">智障游戏</a></td>
-              <td bgcolor="#A61818"><a href="vrchat://index">启动VRC</a> &nbsp;</td>
-              <td bgcolor="#3956FF">---</td>
-              <td bgcolor="#A61818"><a href="DL.html">下载</a>&nbsp;</td>
-              <td bgcolor="#3956FF"><a href="https://www.bilibili.com/">BILIBILI&nbsp;</a></td>
-            </tr>
-            <tr>
-              <td height="50" align="center" bgcolor="#A61818">---&nbsp;</td>
-              <td bgcolor="#3956FF"><a href="TEMP.html">&nbsp;央视新闻</a></td>
-              <td bgcolor="#A61818">&nbsp;</td>
-              <td bgcolor="#3956FF">&nbsp;</td>
-              <td bgcolor="#A61818">&nbsp;</td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="200" border="0" align="left" cellpadding="0" cellspacing="10">
-          <tbody>
-            <tr> </tr>
-          </tbody>
-      </table></th>
-    </tr>
-  </tbody>
-</table>
-<table width="200" border="0" align="center">
-  <tbody>
-    <tr>
-      <td align="center" style="font-size: 9px"><p><img src="../use/屏幕截图 2025-12-25 181752.png" width="104" height="18" alt=""/></p>
-      <p>&nbsp;Copyright©2025-2026 版权没有</p></td>
-    </tr>
-  </tbody>
-</table>
-<table width="200" border="0" align="center">
-  <tbody>
-    <tr> </tr>
-  </tbody>
-</table>
+<body>
+
+<div class="container">
+    <!-- 左侧侧边栏 -->
+    <aside class="sidebar">
+        <img src="../use/channels4_banner (4).jpg" alt="Gawr Gura Banner" class="banner-img">
+        
+        <ul class="nav-menu">
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="call m.html">联系我</a></li>
+            <li><a href="away.html">我的踪迹</a></li>
+            <li><a href="URL.html" class="nav-item-active">有用的网址？</a></li>
+            <li><a href="../index.html">回到首页</a></li>
+        </ul>
+    </aside>
+
+    <!-- 右侧主内容 -->
+    <main class="main-content">
+        <h2 class="page-title">常用的网址</h2>
+        
+        <div class="url-grid">
+            <!-- 第一行 (对应原表格第1行) -->
+            <a href="https://www.qianwen.com/" target="_blank" class="url-card theme-red">通义千问</a>
+            <a href="https://chat.deepseek.com/" target="_blank" class="url-card theme-blue">deepseek</a>
+            <a href="https://github.com/" target="_blank" class="url-card theme-red">Github</a>
+            <a href="https://www.google.com/" target="_blank" class="url-card theme-blue">Google</a>
+            <a href="https://vidhub.tv/" target="_blank" class="url-card theme-red">免费电影</a>
+
+            <!-- 第二行 (对应原表格第2行) -->
+            <a href="https://www.mcmod.cn/" target="_blank" class="url-card theme-blue">MC百科</a>
+            <a href="https://pan.quark.cn/s/8f79f214a2df#/list/share" target="_blank" class="url-card theme-red">图吧工具箱</a>
+            <a href="https://s.team/" target="_blank" class="url-card theme-blue">Steam</a>
+            <a href="https://www.wikipedia.org/" target="_blank" class="url-card theme-red">维基百科</a>
+            <a href="https://types.yuzeli.com/survey" target="_blank" class="url-card theme-blue">哈佛测试</a>
+
+            <!-- 第三行 (对应原表格第3行) -->
+            <div class="url-card placeholder">---</div>
+            <div class="url-card placeholder">---</div>
+            <a href="video Player/player.html" class="url-card theme-red highlight-border">我的播放器</a>
+            <div class="url-card placeholder">---</div>
+            <div class="url-card placeholder">---</div>
+
+            <!-- 第四行 (对应原表格第4行) -->
+            <a href="智障小游戏 - 稳定版.html" class="url-card theme-blue">智障游戏</a>
+            <a href="vrchat://index" class="url-card theme-red highlight-border">启动VRC</a>
+            <div class="url-card placeholder">---</div>
+            <a href="DL.html" class="url-card theme-red">下载</a>
+            <a href="https://www.bilibili.com/" target="_blank" class="url-card theme-blue">BILIBILI</a>
+
+            <!-- 第五行 (对应原表格第5行) -->
+            <div class="url-card placeholder">---</div>
+            <a href="TEMP.html" class="url-card theme-blue">央视新闻</a>
+            <div class="url-card placeholder">&nbsp;</div>
+            <div class="url-card placeholder">&nbsp;</div>
+            <div class="url-card placeholder">&nbsp;</div>
+        </div>
+    </main>
+
+    <!-- 底部版权 -->
+    <footer class="site-footer">
+        <img src="../use/屏幕截图 2025-12-25 181752.png" alt="Logo" class="footer-logo">
+        <p>Copyright © 2025-2026 shiorko.</p>
+    </footer>
+</div>
 
 </body>
 </html>
