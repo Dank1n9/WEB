@@ -1,135 +1,367 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<title>shiorko的小站</title>
-<style type="text/css">
-a:link {
-    text-decoration: none;
-    color: #FFFFFF;
-}
-a:visited {
-	text-decoration: none;
-	color: #FFFFFF;
-}
-a:hover {
-	text-decoration: none;
-}
-a:active {
-    text-decoration: none;
-    font-size: 36px;
-}
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更新日志 - shiorko的小站</title>
+    <style>
+        /* --- 全局基础设置 --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        
+        /* --- 主容器 --- */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        /* --- 顶部横幅区 --- */
+        .header-section {
+            width: 100%;
+            background: #A0EA43; /* 原有的绿色 */
+            padding: 20px;
+            text-align: center;
+        }
+        .banner-img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .page-title {
+            font-size: 28px;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .page-subtitle {
+            font-size: 16px;
+            color: #555;
+            opacity: 0.8;
+        }
+
+        /* --- 侧边导航 (可选，保持风格统一) --- */
+        .sidebar {
+            flex: 0 0 200px;
+            background: #2c3e50;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .nav-btn {
+            display: block;
+            background: #34495e;
+            color: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .nav-btn:hover {
+            background: #A0EA43;
+            color: #2c3e50;
+            transform: translateX(5px);
+        }
+
+        /* --- 更新日志主体 --- */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            min-width: 300px;
+            background: #fafafa;
+        }
+
+        /* 时间轴容器 */
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+        }
+        /* 左侧竖线 */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+        }
+
+        /* 单个日志卡片 */
+        .log-card {
+            position: relative;
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 5px solid #A0EA43; /* 默认绿色 */
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .log-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        /* 圆点装饰 */
+        .log-card::before {
+            content: '';
+            position: absolute;
+            left: -29px; /* 对齐竖线中心 */
+            top: 25px;
+            width: 14px;
+            height: 14px;
+            background: #A0EA43;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px #e0e0e0;
+        }
+
+        /* 卡片头部：版本和日期 */
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .version-tag {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            background: #eef6fb;
+            padding: 4px 12px;
+            border-radius: 4px;
+            border: 1px solid #dcebf7;
+        }
+        .date-tag {
+            font-size: 14px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        /* 状态标签 (BETA / RELEASE) */
+        .status-badge {
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .status-beta {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .status-release {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        /* 卡片内容 */
+        .log-content {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.6;
+        }
+        .log-content strong {
+            color: #A0EA43; /* 强调色 */
+            font-weight: 700;
+        }
+
+        /* 底部按钮 */
+        .back-btn-container {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ddd;
+        }
+        .back-btn {
+            display: inline-block;
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            background: #A0EA43;
+            padding: 12px 30px;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(160, 234, 67, 0.4);
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            background: #8bc34a;
+            transform: scale(1.05);
+            color: #fff;
+        }
+
+        /* --- 手机端适配 --- */
+        @media (max-width: 768px) {
+            .container { margin: 0; border-radius: 0; flex-direction: column; }
+            .sidebar { width: 100%; flex: none; flex-direction: row; overflow-x: auto; padding: 10px; }
+            .nav-btn { white-space: nowrap; margin: 0 5px; font-size: 14px; }
+            .main-content { padding: 20px; }
+            .log-header { flex-direction: column; align-items: flex-start; }
+            .status-badge { margin-left: 0; margin-top: 5px; }
+        }
+    </style>
 </head>
 
 <body>
-<p>
-  <table width="200" border="1" align="center">
-    <tbody>
-      <tr>
-        <th bgcolor="#A0EA43" scope="col"><img src="../use/channels4_banner (4).jpg" width="1707" height="282" alt=""/>
-          <table width="1000" border="1" align="center">
-            <tbody>
-              <tr>
-                <td width="236">&nbsp;V 0.0.1&nbsp; &nbsp; &nbsp;2025/12/24</td>
-                <td width="748" align="center">一切的开始&lt;(￣︶￣)↗[GO!]&nbsp; &nbsp;BETA</td>
-              </tr>
-              <tr>
-                <td>V 0.0.2&nbsp; &nbsp; 2025/12/25&nbsp; &nbsp;</td>
-                <td align="center">&nbsp;添加了更新日志(上一条怎么来的?)&nbsp; &nbsp; BETA</td>
-              </tr>
-              <tr>
-                <td>&nbsp;V 0.1.0&nbsp; &nbsp;2025/12/25</td>
-                <td>大更新！！！加入了自制的视频播放器(〃￣︶￣)人(￣︶￣〃)&nbsp; &nbsp; &nbsp;BETA</td>
-              </tr>
-              <tr>
-                <td>&nbsp;V 0.1.1&nbsp; &nbsp;2025/12/25</td>
-                <td>新加逃饭系统&nbsp; &nbsp; BETA&nbsp;</td>
-              </tr>
-              <tr>
-                <td>V 0.1.2&nbsp; &nbsp;2025/12/25&nbsp;</td>
-                <td>修复因带宽限制而无法使用自制播放器问题☆*: .｡. o(≧▽≦)o .｡.:*☆&nbsp; &nbsp; BETA&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;V 1.0.0&nbsp; &nbsp;2026/2/11</td>
-                <td>新增服务器介绍&nbsp; 摘掉BETA的帽子了&nbsp; &nbsp;逃饭系统已移除（文件未删除）</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-            </tbody>
-          </table>
-          <table width="1000" border="1" align="center">
-            <tbody>
-              <tr>
-                <td width="236">&nbsp;</td>
-                <td width="748">&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-            </tbody>
-          </table>
-          <table width="800" align="center">
-            <tbody>
-              <tr>
-                <td align="center"><a href="../index.html"style="font-size: 36px">&nbsp;返回首页</a></td>
-              </tr>
-            </tbody>
-          
-          
-            
-        </table>
-        <span style="font-size: larger"><a href="../index.html">&nbsp;</a></span> </th>
-      </tr>
-    </tbody>
-  </table>
-</p>
+
+<div class="container">
+    <!-- 顶部横幅 -->
+    <header class="header-section">
+        <img src="../use/channels4_banner (4).jpg" alt="Banner" class="banner-img">
+        <h1 class="page-title">更新日志</h1>
+        <p class="page-subtitle">记录小站的每一步成长 (〃￣︶￣)人(￣︶￣〃)</p>
+    </header>
+
+    <!-- 左侧简单导航 (可选) -->
+    <aside class="sidebar">
+        <a href="../index.html" class="nav-btn">🏠 首页</a>
+        <a href="about.html" class="nav-btn">👤 关于我</a>
+        <a href="away.html" class="nav-btn">🎮 我的踪迹</a>
+        <a href="call m.html" class="nav-btn">📬 联系我</a>
+    </aside>
+
+    <!-- 主要内容：时间轴 -->
+    <main class="main-content">
+        <div class="timeline">
+
+            <!-- ✅ 如何添加新日志：复制下面整个V1.0.0 div.log-card 块，粘贴到最上面，修改内容即可 -->
+            <!-- 日志项 1: V1.0.1 (正式版) -->
+            <div class="log-card" style="border-left-color: #2ecc71;">
+                <div class="log-header">
+                    <div>
+                        <span class="version-tag">V 1.1.0</span>
+                        <span class="status-badge status-release">RELEASE</span>
+                    </div>
+                    <span class="date-tag">2026/3/7</span>
+                </div>
+                <div class="log-content">
+                    🎉 <strong>我们复活啦</strong> <br>
+                    <br>
+                    
+                </div>
+            </div>
+            <!-- 日志项 1: V1.0.0 (正式版) -->
+            <div class="log-card" style="border-left-color: #2ecc71;">
+                <div class="log-header">
+                    <div>
+                        <span class="version-tag">V 1.0.0</span>
+                        <span class="status-badge status-release">RELEASE</span>
+                    </div>
+                    <span class="date-tag">2026/2/11</span>
+                </div>
+                <div class="log-content">
+                    🎉 <strong>大版本发布！</strong> 摘掉 BETA 的帽子了！<br>
+                    ✨ 新增服务器介绍页面。<br>
+                    ⚠️ 逃饭系统已移除（文件未删除，留作纪念）。
+                </div>
+            </div>
+
+            <!-- 日志项 2: V0.1.2 -->
+            <div class="log-card">
+                <div class="log-header">
+                    <div>
+                        <span class="version-tag">V 0.1.2</span>
+                        <span class="status-badge status-beta">BETA</span>
+                    </div>
+                    <span class="date-tag">2025/12/25</span>
+                </div>
+                <div class="log-content">
+                    🛠️ 修复因带宽限制而无法使用自制播放器的问题。<br>
+                    ☆*: .｡. o(≧▽≦)o .｡.:*☆ 终于能流畅看视频啦！
+                </div>
+            </div>
+
+            <!-- 日志项 3: V0.1.1 -->
+            <div class="log-card">
+                <div class="log-header">
+                    <div>
+                        <span class="version-tag">V 0.1.1</span>
+                        <span class="status-badge status-beta">BETA</span>
+                    </div>
+                    <span class="date-tag">2025/12/25</span>
+                </div>
+                <div class="log-content">
+                    🍚 新加“逃饭系统”（实验性功能）。<br>
+                    ⚠️ 仅供娱乐，请勿当真~
+                </div>
+            </div>
+
+            <!-- 日志项 4: V0.1.0 -->
+            <div class="log-card">
+                <div class="log-header">
+                    <div>
+                        <span class="version-tag">V 0.1.0</span>
+                        <span class="status-badge status-beta">BETA</span>
+                    </div>
+                    <span class="date-tag">2025/12/25</span>
+                </div>
+                <div class="log-content">
+                    🚀 <strong>大更新！！！</strong><br>
+                    📺 加入了自制的视频播放器 (〃￣︶￣)人(￣︶￣〃)<br>
+                    网站功能开始丰富起来啦！
+                </div>
+            </div>
+
+            <!-- 日志项 5: V0.0.2 -->
+            <div class="log-card">
+                <div class="log-header">
+                    <div>
+                        <span class="version-tag">V 0.0.2</span>
+                        <span class="status-badge status-beta">BETA</span>
+                    </div>
+                    <span class="date-tag">2025/12/25</span>
+                </div>
+                <div class="log-content">
+                    📝 添加了更新日志页面。<br>
+                    🤔 上一条怎么来的？这是个谜...
+                </div>
+            </div>
+
+            <!-- 日志项 6: V0.0.1 (初始) -->
+            <div class="log-card">
+                <div class="log-header">
+                    <div>
+                        <span class="version-tag">V 0.0.1</span>
+                        <span class="status-badge status-beta">BETA</span>
+                    </div>
+                    <span class="date-tag">2025/12/24</span>
+                </div>
+                <div class="log-content">
+                    🌱 一切的开始 &lt;(￣︶￣)↗[GO!]<br>
+                    小站正式上线（虽然是 BETA 版）！
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 返回首页按钮 -->
+        <div class="back-btn-container">
+            <a href="../index.html" class="back-btn">← 返回首页</a>
+        </div>
+    </main>
+</div>
+
 </body>
 </html>
