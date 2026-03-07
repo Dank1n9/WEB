@@ -65,7 +65,6 @@
             border-left: 4px solid #fff;
             transform: translateX(5px);
         }
-        /* 当前页面高亮 (联系我) */
         .nav-item-active {
             background: #cecece !important;
             color: #fff !important;
@@ -118,7 +117,7 @@
         }
         .contact-value {
             font-size: 16px;
-            color: #333;
+            color: #333; /* 默认正常颜色 */
             word-break: break-all;
             text-align: right;
             flex: 1;
@@ -143,7 +142,7 @@
             color: #004d33;
         }
 
-        /* 特殊样式：隐藏/未知内容 */
+        /* 特殊样式：仅用于“已隐藏”或“不知道”等次要信息 */
         .text-muted {
             color: #95a5a6;
             font-style: italic;
@@ -200,7 +199,6 @@
         
         <ul class="nav-menu">
             <li><a href="about.html">关于我</a></li>
-            <!-- 当前页面高亮 -->
             <li><a href="call m.html" class="nav-item-active">联系我</a></li>
             <li><a href="away.html">我的踪迹</a></li>
             <li><a href="URL.html">有用的网址？</a></li>
@@ -213,13 +211,13 @@
         <h2 class="page-title">联系方式</h2>
         
         <ul class="contact-list">
-            <!-- 邮箱 -->
-            <li class="contact-item" style="border-left-color: #34495e;">
+            <!-- 邮箱 (颜色已改为正常) -->
+            <li class="contact-item" style="border-left-color: #3498db;">
                 <span class="contact-label">📧 邮箱 E-mail</span>
-                <span class="contact-value text-muted">shiorko@qq.com</span>
+                <span class="contact-value">shiorko@qq.com</span>
             </li>
 
-            <!-- QQ -->
+            <!-- QQ (保持隐藏样式) -->
             <li class="contact-item" style="border-left-color: #2ecc71;">
                 <span class="contact-label">🐧 QQ</span>
                 <span class="contact-value text-muted">(已隐藏)</span>
@@ -233,10 +231,10 @@
                 </span>
             </li>
 
-            <!-- Git -->
-            <li class="contact-item" style="border-left-color: #34495e;">
+            <!-- Git (颜色已改为正常) -->
+            <li class="contact-item" style="border-left-color: #95a5a6;">
                 <span class="contact-label">💻 Git</span>
-                <span class="contact-value text-muted">Dank1n9</span>
+                <span class="contact-value">Dank1n9</span>
             </li>
 
             <!-- 主域名文本 -->
@@ -254,10 +252,9 @@
     <!-- 底部版权 -->
     <footer class="site-footer">
         <img src="../use/屏幕截图 2025-12-25 181752.png" alt="Logo" class="footer-logo">
-        <p>Copyright © 2025-2026 shiorko. </p>
+        <p>Copyright © 2025-2026 shiorko. 版权没有，欢迎复制。</p>
     </footer>
 </div>
 
 </body>
 </html>
-
