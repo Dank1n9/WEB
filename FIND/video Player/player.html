@@ -1,90 +1,219 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<title>我的播放器</title>
-<style type="text/css">
-a:link {
-	text-decoration: none;
-	color: #FFFFFF;
-}
-a:visited {
-	text-decoration: none;
-	color: #FFFFFF;
-}
-a:hover {
-	text-decoration: none;
-}
-a:active {
-	text-decoration: none;
-}
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的播放器 - shiorko的小站</title>
+    <style>
+        /* --- 全局基础设置 --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        
+        /* --- 主容器 --- */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            width: 95%;
+            flex: 1;
+        }
+
+        /* --- 顶部横幅 --- */
+        .header-banner {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            background: #fff;
+        }
+        .banner-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            max-height: 300px;
+        }
+
+        /* --- 播放器主体区域 --- */
+        .player-wrapper {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 视频容器 (保持 16:9 比例) */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* --- 选集列表 (网格布局) --- */
+        .episode-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .episode-card {
+            display: block;
+            background: #6D6D6D;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+        }
+        
+        .episode-card:hover {
+            background: #A0EA43; /* 你的主题绿 */
+            color: #2c3e50;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(160, 234, 67, 0.4);
+        }
+
+        .episode-card.special {
+            background: #ff9f43;
+        }
+        .episode-card.special:hover {
+            background: #ffbe76;
+            color: #fff;
+        }
+
+        .empty-slot {
+            background: #e0e0e0;
+            border-radius: 8px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 14px;
+            cursor: default;
+        }
+
+        /* --- 页脚 --- */
+        .site-footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #999;
+            font-size: 12px;
+            margin-top: auto;
+        }
+        .footer-logo {
+            height: 20px;
+            vertical-align: middle;
+            margin-bottom: 5px;
+            opacity: 0.7;
+        }
+        .footer-text {
+            margin: 5px 0;
+        }
+
+        /* --- 手机端适配 --- */
+        @media (max-width: 768px) {
+            .container { width: 100%; margin: 0; }
+            .header-banner { border-radius: 0; }
+            .player-wrapper { border-radius: 0; padding: 15px; }
+            .episode-grid {
+                grid-template-columns: repeat(2, 1fr); /* 手机上一行两个 */
+            }
+            .episode-card { font-size: 14px; padding: 10px; }
+        }
+    </style>
 </head>
 
-<body><table width="200" border="1" align="center">
-  <tbody>
-    <tr>
-      <th height="1319" valign="top" scope="col"><img src="../../use/channels4_banner (4).jpg" width="1707" height="282" alt=""/>
-        <table width="100%" border="1">
-          <tbody>
-            <tr>
-              <td height="624" colspan="5"><video width="1000" height="600" controls="controls" autoplay="autoplay" ></video></td>
-            </tr>
-            <tr>
-              <td width="20%" height="60" bgcolor="#6D6D6D"><a href="TEST.html">你的名字 中字</a></td>
-              <td width="20%" bgcolor="#6D6D6D"><a href="dont onj.html">别当欧内酱了</a>&nbsp;</td>
-              <td width="20%" bgcolor="#6D6D6D"><a href="GBC.html">广 东 少 女 乐 队</a>&nbsp;</td>
-              <td width="20%" bgcolor="#6D6D6D"><a href="SHFLX.html">&nbsp;守护天津西</a></td>
-              <td width="20%" bgcolor="#6D6D6D">&nbsp;</td>
-            </tr>
-            <tr>
-              <td height="60" bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-            </tr>
-            <tr>
-              <td height="60" bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-            </tr>
-            <tr>
-              <td height="60" bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-            </tr>
-            <tr>
-              <td height="60" bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D">&nbsp;</td>
-              <td bgcolor="#6D6D6D"><a href="FFF/GCZQ.html">大奋专区</a>&nbsp;</td>
-            </tr>
-          </tbody>
-        </table>
-        </th>
-    </tr>
-  </tbody>
-</table>
-<table width="200" border="0" align="center">
-  <tbody>
-    <tr>
-      <td align="center">&nbsp; <p style="font-size: 9px"><img src="../../use/屏幕截图 2025-12-25 181752.png" width="104" height="18" alt=""/></p>
-        <p style="font-size: 9px">Copyright©2025-2026 版权没有</p>
-      <p style="font-size: 9px">仅限个人学习&nbsp;</p></td>
-    </tr>
-  </tbody>
-</table>
-<table width="200" border="0" align="center">
-  <tbody>
-    <tr> </tr>
-  </tbody>
-</table>
+<body>
+
+<div class="container">
+    <!-- 顶部横幅 -->
+    <header class="header-banner">
+        <!-- 注意：如果路径不对，请调整 src -->
+        <img src="../../use/channels4_banner (4).jpg" alt="Banner" class="banner-img">
+    </header>
+
+    <!-- 播放器主体 -->
+    <main class="player-wrapper">
+        
+        <!-- 视频区域 -->
+        <div class="video-container">
+            <!-- 
+               提示：
+               1. 现代浏览器通常阻止“带声音的自动播放”。
+               2. 如果需要自动播放，请添加 muted 属性： <video ... autoplay muted controls>
+               3. 记得在 src 里填入你的视频文件路径，例如 src="movie.mp4"
+            -->
+            <video controls poster="">
+                <source src="" type="video/mp4">
+                您的浏览器不支持 HTML5 视频。
+            </video>
+        </div>
+
+        <!-- 选集列表 -->
+        <h3 style="color: #2c3e50; margin-bottom: 10px; border-left: 5px solid #A0EA43; padding-left: 10px;">
+            📺 剧集选择
+        </h3>
+        
+        <div class="episode-grid">
+            <!-- 有内容的链接 -->
+            <a href="TEST.html" class="episode-card">你的名字 中字</a>
+            <a href="dont onj.html" class="episode-card">别当欧内酱了</a>
+            <a href="GBC.html" class="episode-card">广 东 少 女 乐 队</a>
+            <a href="SHFLX.html" class="episode-card">守护天津西</a>
+            <!--<a href="你的新页面.html" class="episode-card">新番剧名字</a>-->
+            <!-- 空位 (可选，为了排版整齐，不需要可以删掉) -->
+            <div class="empty-slot">暂无资源</div>
+            <div class="empty-slot">暂无资源</div>
+            <div class="empty-slot">暂无资源</div>
+            <div class="empty-slot">暂无资源</div>
+            <div class="empty-slot">暂无资源</div>
+            
+            <!-- 特殊链接 (大奋专区) -->
+            <a href="FFF/GCZQ.html" class="episode-card special">🔥 大奋专区</a>
+        </div>
+
+    </main>
+</div>
+
+<!-- 页脚 -->
+<footer class="site-footer">
+    <img src="../../use/屏幕截图 2025-12-25 181752.png" alt="Logo" class="footer-logo">
+    <p class="footer-text">Copyright © 2025-2026 shiorko.</p>
+    <p class="footer-text">⚠️ 仅限个人学习交流使用</p>
+</footer>
 
 </body>
 </html>
