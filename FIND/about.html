@@ -2,36 +2,35 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <!-- 这一行很重要，让网页在手机上正常显示 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>shiorko的小站</title>
+    <title>关于我 - shiorko的小站</title>
     <style>
-        /* --- 全局基础设置 --- */
+        /* --- 全局基础设置 (与首页保持一致) --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
-            background-color: #f0f2f5; /* 浅灰背景，保护视力 */
+            background-color: #f0f2f5;
             color: #333;
             line-height: 1.6;
         }
         a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
         
-        /* --- 主容器：居中显示，最大宽度1000px --- */
+        /* --- 主容器 --- */
         .container {
             max-width: 1000px;
             margin: 30px auto;
             background: #ffffff;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08); /* 柔和阴影 */
-            border-radius: 12px; /* 圆角 */
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 12px;
             overflow: hidden;
-            display: flex; /* 弹性布局 */
-            flex-wrap: wrap; /* 允许换行（适配手机） */
+            display: flex;
+            flex-wrap: wrap;
         }
 
         /* --- 左侧侧边栏 --- */
         .sidebar {
-            flex: 0 0 260px; /* 固定宽度260px */
-            background: #2c3e50; /* 深色背景 */
+            flex: 0 0 260px;
+            background: #2c3e50;
             color: #fff;
             padding: 30px 20px;
             text-align: center;
@@ -40,7 +39,7 @@
             align-items: center;
         }
 
-        /* 横幅图片样式 */
+        /* 横幅图片 */
         .banner-img {
             width: 100%;
             height: auto;
@@ -50,7 +49,7 @@
             transition: transform 0.3s ease;
         }
         .banner-img:hover {
-            transform: scale(1.03); /* 鼠标悬停轻微放大 */
+            transform: scale(1.03);
         }
 
         /* 导航菜单 */
@@ -72,90 +71,60 @@
             border-left: 4px solid transparent;
         }
         .nav-menu a:hover {
-            background: #ffa400; /* 悬停变橙色 */
+            background: #ffa400;
             color: #fff;
             border-left: 4px solid #fff;
-            transform: translateX(5px); /* 向右移动 */
+            transform: translateX(5px);
+        }
+        /* 特殊样式：当前页面或不可点击项 */
+        .nav-item-static {
+            display: block;
+            background: #cecece; /* 对应你原来的浅灰色 */
+            color: #fff;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: default;
+            border-left: 4px solid #fff;
         }
 
         /* --- 右侧主内容区 --- */
         .main-content {
-            flex: 1; /* 占据剩余空间 */
-            padding: 40px;
-            min-width: 300px; /* 防止太窄 */
-        }
-
-        /* 音乐提示条 */
-        .music-bar {
-            background: linear-gradient(135deg, #ffa400, #ff8c00);
-            color: #fff;
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
+            flex: 1;
+            padding: 50px 40px;
+            min-width: 300px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(255, 164, 0, 0.3);
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .music-bar span { font-weight: bold; font-size: 15px; }
-        .music-bar a {
-            background: rgba(255,255,255,0.2);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-        }
-        .music-bar a:hover { background: #fff; color: #ffa400; }
-
-        /* 视频容器 */
-        .video-container {
-            width: 100%;
-            background: #000;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            margin-bottom: 20px;
-            position: relative;
-            padding-top: 56.25%; /* 16:9 比例 */
-            height: 0;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
+            flex-direction: column;
+            justify-content: center; /* 内容垂直居中 */
         }
 
-        /* 提示信息框 */
-        .alert-box {
-            background: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeeba;
-            padding: 15px;
-            border-radius: 6px;
-            font-size: 14px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-        }
-        .alert-box::before {
-            content: "⚠️";
-            margin-right: 10px;
+        /* 内容文本样式 */
+        .content-text {
             font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        .emoji-large {
+            font-size: 48px;
+            display: block;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+        .kaomoji {
+            font-size: 32px;
+            color: #ffa400;
+            font-weight: bold;
+            display: block;
+            margin-top: 20px;
         }
 
-        /* 底部版本信息 */
-        .version-info {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            color: #777;
-            font-size: 14px;
+        /* 简单的弹跳动画 */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
-        .version-info a { color: #ffa400; font-weight: bold; }
 
         /* --- 页脚 --- */
         .site-footer {
@@ -174,12 +143,12 @@
             opacity: 0.6;
         }
 
-        /* --- 手机端适配 (屏幕宽度小于768px时) --- */
+        /* --- 手机端适配 --- */
         @media (max-width: 768px) {
             .container {
                 margin: 0;
                 border-radius: 0;
-                flex-direction: column; /* 改为垂直排列 */
+                flex-direction: column;
             }
             .sidebar {
                 width: 100%;
@@ -187,18 +156,12 @@
                 padding: 20px;
             }
             .banner-img {
-                max-width: 300px; /* 手机上限制图片最大宽度 */
+                max-width: 300px;
                 margin: 0 auto 20px;
             }
             .main-content {
-                padding: 20px;
-            }
-            .music-bar {
-                flex-direction: column;
-                text-align: center;
-            }
-            .video-container {
-                padding-top: 75%; /* 手机上稍微高一点 */
+                padding: 30px 20px;
+                justify-content: flex-start;
             }
         }
     </style>
@@ -209,49 +172,36 @@
 <div class="container">
     <!-- 左侧侧边栏 -->
     <aside class="sidebar">
-        <!-- 你的 Gawr Gura 横幅 -->
-        <img src="use/channels4_banner (4).jpg" alt="Gawr Gura Banner" class="banner-img">
+        <!-- 注意：这里使用了 ../ 因为文件在子文件夹中 -->
+        <img src="../use/channels4_banner (4).jpg" alt="Gawr Gura Banner" class="banner-img">
         
-        <!-- 导航菜单 -->
         <ul class="nav-menu">
-            <li><a href="FIND/about.html">关于我</a></li>
-            <li><a href="FIND/call m.html">联系我</a></li>
-            <li><a href="FIND/away.html">我的踪迹</a></li>
-            <li><a href="FIND/URL.html">有用的网址？</a></li>
-            <li><a href="https://explanation.shiorko.dpdns.org/" target="_blank">介绍 (外链)</a></li>
+            <!-- "关于我"设为静态高亮，表示当前页面 -->
+            <li><span class="nav-item-static">关于我</span></li>
+            
+            <li><a href="call m.html">联系我</a></li>
+            <li><a href="away.html">我的踪迹</a></li>
+            <li><a href="URL.html">有用的网址？</a></li>
+            <li><a href="../index.html">回到首页</a></li>
         </ul>
     </aside>
 
     <!-- 右侧主内容 -->
     <main class="main-content">
-        <!-- 音乐提示条 -->
-        <div class="music-bar">
-            <span>🎵 使用音乐：Travelers' encore</span>
-            <a href="https://file.shiorko.dpdns.org/file/Travelers' encore.ogg" download>⬇️ 点此下载音乐</a>
-        </div>
-
-        <!-- 视频区域 (16:9 自适应) -->
-        <div class="video-container">
-            <iframe 
-                src="https://drive.google.com/file/d/1c4hp_jPs_VOt6Apy7a7r9fcc6Ir2eAY9/preview" 
-                allowfullscreen>
-            </iframe>
-        </div>
-
-        <!-- 网络提示 -->
-        <div class="alert-box">
-            此视频使用 Google 云端硬盘托管，如果您在中国大陆，可能因网络原因无法直接加载。
-        </div>
-
-        <!-- 版本与更新 -->
-        <div class="version-info">
-            <p>v1.0.0 &nbsp;|&nbsp; <strong><a href="FIND/Update.html">查看更新日志</a></strong></p>
+        <div class="content-text">
+            <p>当然这个网页是瞎写的 🤔</p>
+            
+            <span class="emoji-large">😊</span>
+            
+            <p>（这里可以写更多关于你的介绍，或者留白保持神秘感）</p>
+            
+            <span class="kaomoji">（￣︶￣）↗</span>
         </div>
     </main>
 
     <!-- 底部版权 -->
     <footer class="site-footer">
-        <img src="use/屏幕截图 2025-12-25 181752.png" alt="Logo" class="footer-logo">
+        <img src="../use/屏幕截图 2025-12-25 181752.png" alt="Logo" class="footer-logo">
         <p>Copyright © 2025-2026 shiorko. 版权没有，欢迎复制。</p>
     </footer>
 </div>
