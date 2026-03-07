@@ -1,120 +1,193 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<title>shiorko的小站</title>
-<style type="text/css">
-a:link {
-    text-decoration: none;
-    color: #FFFFFF;
-}
-a:visited {
-	text-decoration: none;
-	color: #FFFFFF;
-}
-a:hover {
-	text-decoration: none;
-}
-a:active {
-    text-decoration: none;
-    color: #FFFFFF;
-}
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shiorko的小站</title>
+    <style>
+        /* --- 全局重置与基础样式 --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        a:hover { opacity: 0.8; }
+
+        /* --- 布局容器 --- */
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap; /* 允许换行 */
+        }
+
+        /* --- 侧边栏 (导航) --- */
+        .sidebar {
+            flex: 0 0 250px; /* 固定宽度 */
+            background: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .banner-img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .nav-menu { list-style: none; }
+        .nav-menu li { margin-bottom: 15px; }
+        .nav-menu a {
+            display: block;
+            background: #8C8C8C;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .nav-menu a:hover {
+            background: #ffa400;
+            transform: translateX(5px);
+        }
+
+        /* --- 主内容区 --- */
+        .main-content {
+            flex: 1; /* 占据剩余空间 */
+            padding: 30px;
+            min-width: 300px; /* 最小宽度防止挤压 */
+        }
+
+        /* --- 音乐提示条 --- */
+        .music-bar {
+            background: #ffa400;
+            color: #fff;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .music-bar a {
+            text-decoration: underline;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* --- 视频区域 --- */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            /* 16:9 比例容器，或者固定高度 */
+            height: 400px; 
+            background: #000;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .video-note {
+            font-size: 14px;
+            color: #666;
+            background: #fff3cd;
+            padding: 10px;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 20px;
+        }
+
+        /* --- 页脚 --- */
+        .site-footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background: #eee;
+            font-size: 12px;
+            color: #777;
+            border-top: 1px solid #ddd;
+        }
+        .footer-logo {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* --- 响应式适配 (手机端) --- */
+        @media (max-width: 768px) {
+            .container { flex-direction: column; margin: 0; border-radius: 0; }
+            .sidebar { flex: none; width: 100%; }
+            .banner-img { max-width: 300px; margin: 0 auto 20px; }
+            .video-wrapper { height: 250px; }
+            .music-bar { flex-direction: column; text-align: center; }
+        }
+    </style>
 </head>
 
 <body>
-<table width="200" border="1" align="center">
-  <tbody>
-    <tr>
-      <th scope="col"><img src="use/channels4_banner (4).jpg" width="1707" height="282" alt=""/>
-        <table width="200" border="0" align="left" cellpadding="0" cellspacing="10">
-          <tbody>
-            <tr>
-              <th height="70" bgcolor="#8C8C8C" scope="row"><span style="color: #FFFFFF; font-size: 24px;"><a href="FIND/about.html">关于我</a></span>&nbsp;</th>
-            </tr>
-            <tr>
-              <th height="70" bgcolor="#8C8C8C" style="font-size: 24px; color: #FFFFFF;" scope="row">&nbsp;<a href="FIND/call m.html">联系我</a></th>
-            </tr>
-            <tr>
-              <th height="70" bgcolor="#8C8C8C" style="color: #FFFFFF; font-size: 24px;" scope="row"><a href="FIND/away.html">我的踪迹</a>&nbsp;</th>
-            </tr>
-            <tr>
-              <th height="70" bgcolor="#8C8C8C" style="font-size: 24px" scope="row">&nbsp;<a href="FIND/URL.html">有用的网址？</a></th>
-            </tr>
-            <tr>
-              <th height="70" bgcolor="#8C8C8C" scope="row"><span style="font-size: 24px"><a href="https://explanation.shiorko.dpdns.org/">介绍</a>&nbsp;</span></th>
-            </tr>
-          </tbody>
-        </table>
-        <table width="800" border="0" align="center">
-          <tbody>
-            <tr>
-              <td height="75" style="font-size: 48px">&nbsp;我们复活啦！</td>
-            </tr>
-            <tr>
-              <td height="350"><table width="100%" border="0">
-                <tbody>
-                  <tr>
-                    <td bgcolor="#FFA400">使用音乐：Travelers' encore&nbsp; &nbsp;<a href="https://file.shiorko.dpdns.org/file/Travelers' encore.ogg">点我下载此音乐</a>&nbsp;</td>
-                  </tr>
-                </tbody>
-              </table>
-                <iframe 
-  src="https://drive.google.com/file/d/1c4hp_jPs_VOt6Apy7a7r9fcc6Ir2eAY9/preview" 
-  width="700" 
-  height="400" 
-  frameborder="0" 
-  allowfullscreen>
-</iframe>
-                <table width="100%" border="0">
-                  <tbody>
-                    <tr> </tr>
-                  </tbody>
-                </table>
-                </td>
-            </tr>
-            <tr>
-                              &nbsp;<td height="2"></td>
-            </tr>
-            <tr>
-              <td height="51">此视频使用Google云端硬盘，国内网络无法直接访问</td>
-            </tr>
-            <tr>
-              <td height="50" align="center">v1.0.0&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <strong><a href="FIND/Update.html">更新日志？</a></strong></td>
-            </tr>
-          </tbody>
-        </table>
-        <table width="200" border="0" align="left" cellpadding="0" cellspacing="10">
-          <tbody>
-            <tr> </tr>
-          </tbody>
-      </table></th>
-    </tr>
-  </tbody>
-</table>
-<table width="1000" border="0" align="center">
-  <tbody>
-    <tr>
-      <td align="center" style="font-size: 9px"><p><img src="use/屏幕截图 2025-12-25 181752.png" width="104" height="18" alt="">&nbsp;</p>
-      <p>Copyright©2025-2026&nbsp; <span style="font-size: 9px"> </span>版权没有<span style="font-size: 9px"> </span></p></td>
-    </tr>
-  </tbody>
-</table>
-<table width="1000" border="0" align="center">
-  <tbody>
-    <tr> </tr>
-  </tbody>
-</table>
-<table width="200" border="0" align="center">
-  <tbody>
-    <tr> </tr>
-  </tbody>
-</table>
+
+<div class="container">
+    <!-- 左侧侧边栏 -->
+    <aside class="sidebar">
+        <!-- 建议压缩图片大小以加快加载 -->
+        <img src="use/channels4_banner (4).jpg" alt="Banner" class="banner-img">
+        
+        <ul class="nav-menu">
+            <li><a href="FIND/about.html">关于我</a></li>
+            <li><a href="FIND/call m.html">联系我</a></li>
+            <li><a href="FIND/away.html">我的踪迹</a></li>
+            <li><a href="FIND/URL.html">有用的网址？</a></li>
+            <li><a href="https://explanation.shiorko.dpdns.org/" target="_blank">介绍 (外链)</a></li>
+        </ul>
+    </aside>
+
+    <!-- 右侧主内容 -->
+    <main class="main-content">
+        <!-- 音乐提示 -->
+        <div class="music-bar">
+            <span>🎵 使用音乐：Travelers' encore</span>
+            <a href="https://file.shiorko.dpdns.org/file/Travelers' encore.ogg" download>⬇️ 点此下载音乐</a>
+        </div>
+
+        <!-- 视频区域 -->
+        <div class="video-wrapper">
+            <!-- 注意：国内访问 Google Drive 可能会失败，这里保留了你的链接 -->
+            <iframe 
+                src="https://drive.google.com/file/d/1c4hp_jPs_VOt6Apy7a7r9fcc6Ir2eAY9/preview" 
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- 提示信息 -->
+        <div class="video-note">
+            ⚠️ 提示：此视频托管于 Google 云端硬盘，如果您在中国大陆，可能因网络原因无法直接加载。
+        </div>
+
+        <!-- 底部信息 -->
+        <div style="text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+            <p>v1.0.0 &nbsp;|&nbsp; <strong><a href="FIND/Update.html" style="color:#ffa400;">查看更新日志</a></strong></p>
+        </div>
+    </main>
+
+    <!-- 页脚 (跨列显示) -->
+    <footer class="site-footer">
+        <img src="use/屏幕截图 2025-12-25 181752.png" alt="Logo" class="footer-logo">
+        <p>Copyright © 2025-2026 shiorko. 版权没有，欢迎复制。</p>
+    </footer>
+</div>
 
 </body>
 </html>
-
-
-
-
-
