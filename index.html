@@ -147,6 +147,7 @@
             border-bottom: 2px solid #ffcf8a;
             display: flex;
             align-items: center;
+            justify-content: space-between; /* 新增：让标题和放大按钮左右分布 */
             gap: 12px;
             flex-wrap: wrap;
         }
@@ -167,6 +168,25 @@
             font-size: 0.7rem;
             font-weight: 600;
             color: #b45f06;
+        }
+        /* 新增：放大窗口按钮样式 */
+        .expand-btn {
+            background: rgba(255, 164, 0, 0.9);
+            color: white;
+            border: none;
+            border-radius: 40px;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+        .expand-btn:hover {
+            background: #e67e00;
+            transform: scale(1.05);
         }
         
         /* iframe 容器 —— 窗口大小已经缩小（之前用户反馈过大） */
@@ -335,7 +355,7 @@
         <img src="use/channels4_banner (4).jpg" alt="Gawr Gura Banner" class="banner-img" loading="lazy">
         
         <ul class="nav-menu">
-            <li><a href="FIND/about.html"> 关于我</a></li>
+            <li><a href="FIND/about.html">关于我</a></li>
             <li><a href="FIND/call m.html"> 联系我</a></li>
             <li><a href="FIND/away.html"> 我的踪迹</a></li>
             <li><a href="FIND/URL.html"> 有用网址</a></li>
@@ -345,19 +365,25 @@
 
     <main class="main-content">
         <div class="music-bar">
-            <span>🎵 背景音乐推荐：See you again · 怀念经典</span>
-            <a href="https://file.shiorko.dpdns.org/file/seeyouagain.mp4" download>⬇️ 下载音乐 (MP4)</a>
+            <span>🎵 【哈基米音乐】Memory Reboot</span>
+            <a href="https://file.shiorko.dpdns.org/file/%E3%80%90%E5%93%88%E5%9F%BA%E7%B1%B3%E9%9F%B3%E4%B9%90%E3%80%91Memory%20Reboot.mp3" download>⬇️ 下载音乐 (MP4)</a>
         </div>
 
         <!-- SBTI 测试模块 (视频已替换，窗口大小已缩小) -->
         <div class="test-embed-wrapper">
             <div class="test-header">
-                <h3>✨ SBTI 测试</h3>
-                <span class="test-badge">16型人格 · 专业版</span>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <h3>✨ SBTI 测试</h3>
+                    <span class="test-badge">官方完整版</span>
+                </div>
+                <!-- 新增：放大窗口按钮 -->
+                <button class="expand-btn" onclick="openFullscreenIframe()">
+                    🖥️ 放大窗口
+                </button>
             </div>
             <div class="sbti-iframe-box">
-                <iframe 
-                    src="https://sbti.xn--6qqu5mlulk7i.shop/" 
+                <iframe id="sbti-iframe"
+                    src="https://sbti.dev/test" 
                     title="SBTI性格测试 - 在线人格分析"
                     loading="lazy"
                     allow="accelerometer; clipboard-write; encrypted-media; fullscreen; geolocation; microphone; camera; web-share"
@@ -368,7 +394,7 @@
         </div>
 
         <div class="alert-box">
-            闲的没事的话来做一个SBTI测试吧🤯 如果加载稍慢，请耐心等待或刷新页面。
+            本站现已集成 SBTI 人格测试 (完整交互界面) —— 深入探索你的性格特质。如果加载稍慢，请耐心等待或刷新页面。
         </div>
 
         <!-- 版本信息：严格保持你原来的 v1.1.0，未改动任何描述 -->
@@ -382,6 +408,23 @@
         <p>Copyright © 2025-2026 shiorko.</p>
     </footer>
 </div>
+
+<!-- 新增：放大窗口功能脚本 -->
+<script>
+function openFullscreenIframe() {
+    const iframe = document.getElementById('sbti-iframe');
+    // 打开新窗口显示测试页面，尺寸接近全屏
+    const fullscreenWindow = window.open(
+        iframe.src, 
+        'SBTI测试全屏窗口', 
+        'width=' + (screen.availWidth - 50) + ',height=' + (screen.availHeight - 100) + ',top=0,left=0'
+    );
+    // 聚焦新窗口
+    if (fullscreenWindow) {
+        fullscreenWindow.focus();
+    }
+}
+</script>
 
 </body>
 </html>
